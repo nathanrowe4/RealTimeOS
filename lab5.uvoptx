@@ -145,34 +145,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>58</LineNumber>
+          <LineNumber>62</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>2886</Address>
+          <Address>2798</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\beta_os.h</Filename>
+          <Filename>.\main_default.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\lab5\beta_os.h\58</Expression>
+          <Expression>\\lab5\main_default.c\62</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>80</LineNumber>
+          <LineNumber>61</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>2972</Address>
+          <Address>2788</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\beta_os.h</Filename>
+          <Filename>.\main_default.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\lab5\beta_os.h\80</Expression>
+          <Expression>\\lab5\main_default.c\61</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

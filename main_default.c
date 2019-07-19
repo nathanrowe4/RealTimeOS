@@ -52,13 +52,12 @@ int main(void) {
 	SysTick_Config(SystemCoreClock/1000);
 	printf("\nStarting...\n\n");
 	
-	uint32_t period = 1000; // 10s
-	//uint32_t prev = -period;
-	uint32_t prev = 0;
+	uint32_t period = 1000; // 1s
+	uint32_t prev = -period;
 	osBetaInitialize();
 
 	uint32_t a = 8;
-	uint32_t b = 15;
+	uint32_t b = 10;
 	osBetaThread_id thread1_id = osBetaCreateThread(&threadFunc1, (void *)&a, Alpha);
 	osBetaThread_id thread2_id = osBetaCreateThread(&threadFunc2, (void *)&b, Alpha);
 	

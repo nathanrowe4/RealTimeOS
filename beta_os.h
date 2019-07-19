@@ -10,9 +10,10 @@ bool osInitialized = false;
 //INITIALIZE
 void osBetaInitialize(void)
 {
+	__disable_irq();
 	printf("INITIALIZING OS BETA RTOS\n");
 	
-  // Main stck base address stored at index 0 of vector table
+  // Main stsck base address stored at index 0 of vector table
   uint32_t *mainStackBaseAddress = 0x0;
 	
   uint32_t stackStart = *mainStackBaseAddress - THREAD_STACK_SIZE*7;
@@ -49,13 +50,18 @@ void osBetaInitialize(void)
 	addThreadToScheduler(runningTask);
 	
 	osInitialized = true;
-	printf("OS BETA RTOS INITIALIZATION COMPLETE\n");
+	printf("OS BETA RTOS INITIALIZATION COMPLETE\n\n");
+	__enable_irq();
 }
 
 //CREATE THREAD
 osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBetaPriority priority) {
+	__disable_irq();
 	
 	osBetaThread_t *thread = &tcb[next_thread_id];
+	
+	printf("CREATING THREAD %d...\n", (uint32_t)thread->id);
+	
 	next_thread_id++;
 	thread->state = osThreadReady;
 	thread->priority = priority;
@@ -79,8 +85,9 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
 	
 	addThreadToScheduler( thread );
 	
-	printf("Thread %d created successfully\n", (uint32_t)thread->id);
+	printf("THREAD %d CREATED!\n\n", (uint32_t)thread->id);
 	threadCreated = true;
+	__enable_irq();
 	return thread->id;
 }
 
@@ -98,9 +105,9 @@ void PendSV_Handler(void)
 	
 	if( nextTask->id != runningTask->id && osInitialized && threadCreated )
 	{
-		printf("CONTEXT SWITCH REQUIRED\n");
+		printf("CONTEXT SWITCH REQUIRED...\n");
 		runningTask->stackPointer = storeContext();
-		printf("stored context from task: %d\n", runningTask->id);
+		printf("STORED CONTEXT FROM TASK %d!\n", runningTask->id);
 
 		__set_PSP(nextTask->stackPointer);
 		
@@ -109,8 +116,9 @@ void PendSV_Handler(void)
 		runningTask = nextTask;
 		
 		restoreContext(runningTask->stackPointer);
-		printf("restored context from task: %d\n", runningTask->id);
+		printf("RESTORED CONTEXT FROM TASK %d!\n\n", runningTask->id);
 	}
+	
 	__enable_irq();
 }
 
