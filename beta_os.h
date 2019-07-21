@@ -17,7 +17,9 @@ osBetaThread_id getNextId(void) {
 //INITIALIZE
 void osBetaInitialize(void)
 {
+	
 	__disable_irq();
+	
 	printf("INITIALIZING OS BETA RTOS\n");
 	
   // Main stsck base address stored at index 0 of vector table
@@ -56,14 +58,15 @@ void osBetaInitialize(void)
 	
 	osInitialized = true;
 	printf("OS BETA RTOS INITIALIZATION COMPLETE\n\n");
+	
 	__enable_irq();
+	
 }
 
 //CREATE THREAD
 osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBetaPriority priority) {
-	__disable_irq();
 	
-    // access the tcb of the thread to be created and increment global id tracker
+	// access the tcb of the thread to be created and increment global id tracker
 	osBetaThread_t *thread = &tcb[getNextId()];
 	
 	printf("CREATING THREAD %d...\n", (uint32_t)thread->id);
@@ -96,13 +99,14 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
         }
 	}
 	
-    // put the task into the scheduler
+  // put the task into the scheduler
 	addThreadToScheduler( thread );
 	
 	printf("THREAD %d CREATED!\n\n", (uint32_t)thread->id);
 	threadCreated = true;
-	__enable_irq();
+	
 	return thread->id;
+	
 }
 
 //CONTEXT SWITCH
@@ -113,40 +117,40 @@ void PendSV_Handler(void)
 	//Do FPP Scheduling
 	if(osInitialized)
 	{
-        // returns next task to run... NULL if no context switch is required
+    // returns next task to run... NULL if no context switch is required
 		nextTask = runScheduler();
 	}
     
-    // no context switch required
-    if( nextTask == NULL )
-    {
-        __enable_irq();
-        return;
-    }
+  // no context switch required
+  if( nextTask == NULL )
+  {
+      __enable_irq();
+      return;
+  }
 	
-    // context switch required
+  // context switch required
 	if( nextTask->id != runningTask->id && osInitialized && threadCreated )
 	{
-		printf("CONTEXT SWITCH REQUIRED...\n");
+		printf("\nCONTEXT SWITCH REQUIRED...\n");
         
-        // store context of old running task
+    // store context of old running task
 		runningTask->stackPointer = storeContext();
 		printf("STORED CONTEXT FROM TASK %d!\n", runningTask->id);
 
-        // set PSP to sp of new running task
+    // set PSP to sp of new running task
 		__set_PSP(nextTask->stackPointer);
 		
-        // change thread states
+    // change thread states
 		nextTask->state = osThreadRunning;
 		runningTask->state = osThreadReady;
         
-        // add old running task to ready list of scheduler
-        addThreadToScheduler(runningTask);
+    // add old running task to ready list of scheduler
+    addThreadToScheduler(runningTask);
         
-        // update runningTask
+    // update runningTask
 		runningTask = nextTask;
 		
-        // restore context of new running task
+    // restore context of new running task
 		restoreContext(runningTask->stackPointer);
 		printf("RESTORED CONTEXT FROM TASK %d!\n\n", runningTask->id);
 	}

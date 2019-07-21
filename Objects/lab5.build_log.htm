@@ -9,7 +9,7 @@ License Information: Eric Praetzel, ECE Dept, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.24.1
-Toolchain Path:  C:\Software\Keil_v5\ARM\ARMCC\Bin
+Toolchain Path:  C:\software\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 5 (build 528)
 Assembler:       Armasm.exe V5.06 update 5 (build 528)
 Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
@@ -21,15 +21,14 @@ Target DLL:      UL2CM3.DLL V1.160.3.0
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-N:\MTE241\Lab5\lab5.uvprojx
-Project File Date:  07/19/2019
+N:\MTE241\RealTimeOS\lab5.uvprojx
+Project File Date:  07/21/2019
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Software\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\software\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
 compiling Retarget.c...
 compiling context.c...
-compiling beta_os_initialize.c...
 compiling main_default.c...
 beta_os_defines.h(73): warning:  #1-D: last line of file ends without a newline
   #endif
@@ -47,19 +46,18 @@ ULL,
 ULL, 
 ULL, 
 ULL } };
-beta_os_scheduler.h(99): warning:  #940-D: missing return statement at end of non-void function "getHighestPriorityThread" 
-  }
-beta_os_scheduler.h(113): warning:  #1-D: last line of file ends without a newline
+beta_os_scheduler.h(101): warning:  #1-D: last line of file ends without a newline
   #endif
-beta_os.h(125): warning:  #1-D: last line of file ends without a newline
+beta_os.h(159): warning:  #1-D: last line of file ends without a newline
   #endif
-main_default.c: 6 warnings, 0 errors
-compiling uart.c...
+main_default.c: 5 warnings, 0 errors
+compiling beta_os_initialize.c...
 assembling startup_LPC17xx.s...
+compiling uart.c...
 compiling system_LPC17xx.c...
 linking...
-Program Size: Code=3504 RO-data=236 RW-data=280 ZI-data=8464  
-".\Objects\lab5.axf" - 0 Error(s), 6 Warning(s).
+Program Size: Code=3548 RO-data=236 RW-data=280 ZI-data=8464  
+".\Objects\lab5.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -78,15 +76,15 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   .\RTE\Device\LPC1768
   .\RTE\_Target_1
-  C:\Software\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include
-  C:\Software\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include
+  C:\software\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include
+  C:\software\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  Device\Include\LPC17xx.h
       Source file:   Device\Source\ARM\startup_LPC17xx.s
       Include file:  RTE_Driver\Config\RTE_Device.h
+      Include file:  Device\Include\LPC17xx.h
       Source file:   Device\Source\system_LPC17xx.c
 
    * Component: ARM::CMSIS:CORE:5.1.1

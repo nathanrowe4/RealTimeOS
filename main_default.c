@@ -12,9 +12,9 @@
 uint32_t msTicks = 0;
 
 void SysTick_Handler(void) {
-    msTicks++;
+  msTicks++;
+	if((uint32_t)(msTicks % 2000) == 0)
 		SCB->ICSR = SCB->ICSR | (1<<28);
-		
 }
 
 void threadFunc1(void *args)
@@ -43,9 +43,17 @@ void threadFunc2(void *args)
 	}
 }
 
-void godFunction(void)
+void threadFunc3(void *args)
 {
-	return;
+	uint32_t count = 0;
+	uint32_t *argument = args;
+	while (true)
+	{
+		if(count % 30000 == 0)
+			printf("threadFunc3: %d\n", *argument);
+		
+		count++;
+	}
 }
 
 int main(void) {
@@ -54,12 +62,18 @@ int main(void) {
 	
 	uint32_t period = 1000; // 1s
 	uint32_t prev = -period;
+	
 	osBetaInitialize();
 
-	uint32_t a = 8;
-	uint32_t b = 10;
+	uint32_t a = 1;
+	uint32_t b = 2;
+	uint32_t c = 3;
+	
+	__disable_irq();
 	osBetaThread_id thread1_id = osBetaCreateThread(&threadFunc1, (void *)&a, Alpha);
 	osBetaThread_id thread2_id = osBetaCreateThread(&threadFunc2, (void *)&b, Alpha);
+	osBetaThread_id thread3_id = osBetaCreateThread(&threadFunc3, (void *)&c, Alpha);
+	__enable_irq();
 	
 	while(true) {
 		if((uint32_t)(msTicks - prev) >= period) {

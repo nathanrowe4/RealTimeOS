@@ -29,17 +29,9 @@ void clearBitVector(osBetaPriority priority) {
 	scheduler.bitVector = scheduler.bitVector & ~(0x01 << priority);
 }
 
-bool threadIsRunning(osBetaThread_t *newThread) {
-    return runningTask == newThread;
-}
-
 //ADD THREAD TO SCHEDULER
 void addThreadToScheduler(osBetaThread_t *newThread) {
-    
-    // do not add to readyList if the thread is already running
-    if(threadIsRunning(newThread))
-        return;
-    
+
 	newThread->next = NULL;
 	
 	//put node in position
@@ -62,34 +54,17 @@ void addThreadToScheduler(osBetaThread_t *newThread) {
 }
 
 //REMOVE THREAD FROM SCHEDULER
-osBetaThread_t* removeThreadFromScheduler(osBetaThread_t* thread) {
+osBetaThread_t* removeThreadFromScheduler(osBetaPriority priority) {
+
+  osBetaThread_t *threadToRemove = scheduler.readyList[priority].head;
 	
-    osBetaThread_t *cursor = scheduler.readyList[thread->priority].head;
-	
-	if(cursor == NULL)
+	if(threadToRemove == NULL)
 		return NULL;
 	
-	osBetaThread_t* threadToRemove;
+	scheduler.readyList[priority].head = threadToRemove->next;
 	
-	if(cursor->next == NULL)
-	{
-		threadToRemove = cursor;
-		
-		cursor = NULL;
-	}
-	else
-	{
-		while(cursor->next != thread)
-			cursor = cursor->next;
-	
-		threadToRemove = cursor->next;
-		
-		// remove thread
-		cursor->next = cursor->next->next;
-	}
-	
-	if(scheduler.readyList[thread->priority].head == NULL)
-		clearBitVector(thread->priority);
+	if(scheduler.readyList[priority].head == NULL)
+		clearBitVector(priority);
 	
 	threadToRemove->next = NULL;
 	
@@ -113,14 +88,13 @@ osBetaPriority getHighestPriority(void) {
 
 //RUN SCHEDULER
 osBetaThread_t* runScheduler(void) {
+  osBetaPriority highestPriority = getHighestPriority();
 	
-    osBetaPriority highestPriority = getHighestPriority();
-	
-	if(runningTask->priority > highestPriority)
+	if(runningTask->priority > highestPriority) {
 		return NULL;
+	}
 	else {
-		//pre-empt
-		return removeThreadFromScheduler(scheduler.readyList[highestPriority].head);
+		return removeThreadFromScheduler(highestPriority);
 	}
 }
 
