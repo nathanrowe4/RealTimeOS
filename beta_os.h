@@ -7,6 +7,13 @@ osBetaThread_id next_thread_id = 0;
 bool threadCreated = false;
 bool osInitialized = false;
 
+// returns id and increments global variable
+osBetaThread_id getNextId(void) {
+    osBetaThread_id idToReturn = next_thread_id;
+    next_thread_id++;
+    return idToReturn;
+}
+
 //INITIALIZE
 void osBetaInitialize(void)
 {
@@ -28,7 +35,7 @@ void osBetaInitialize(void)
   // Copy main stack into process stack of main thread
   uint32_t mainStackSize = *mainStackBaseAddress - __get_MSP();
 
-	memcpy((void*)(tcb[0].stackPointer - mainStackSize), (void*)__get_MSP(), mainStackSize);
+  memcpy((void*)(tcb[0].stackPointer - mainStackSize), (void*)__get_MSP(), mainStackSize);
   
 	// Reset MSP to base address of main stack
   __set_MSP((uint32_t)*mainStackBaseAddress);
@@ -42,12 +49,10 @@ void osBetaInitialize(void)
 	
 	// Set PSP to top of main thread process stack
   __set_PSP((uint32_t)tcb[0].stackPointer - mainStackSize);
-		
-	runningTask = &tcb[next_thread_id];
-	tcb[next_thread_id].state = osThreadRunning;
-	next_thread_id++;
 	
-	addThreadToScheduler(runningTask);
+    //set running task to main thread
+	runningTask = &tcb[getNextId()];
+	runningTask->state = osThreadRunning;
 	
 	osInitialized = true;
 	printf("OS BETA RTOS INITIALIZATION COMPLETE\n\n");
@@ -58,11 +63,12 @@ void osBetaInitialize(void)
 osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBetaPriority priority) {
 	__disable_irq();
 	
-	osBetaThread_t *thread = &tcb[next_thread_id];
+    // access the tcb of the thread to be created and increment global id tracker
+	osBetaThread_t *thread = &tcb[getNextId()];
 	
 	printf("CREATING THREAD %d...\n", (uint32_t)thread->id);
 	
-	next_thread_id++;
+    // change thread properties to reflect newly created thread
 	thread->state = osThreadReady;
 	thread->priority = priority;
 	
@@ -72,20 +78,25 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
         
         switch(i)
         {
+            // PSR
             case 0:
                 (*(uint32_t*)thread->stackPointer) = (uint32_t)DEFAULT_STACK_PSR;
                 break;
+            // function pointer
             case 1:
                 (*(uint32_t*)thread->stackPointer) = (uint32_t)function;
                 break;
+            // arguments to function pointer
             case 7:
                 (*(uint32_t*)thread->stackPointer) = (uint32_t)args;
                 break;
+            // no specific value... just need to be defined
             default:
                 (*(uint32_t*)thread->stackPointer) = (uint32_t)0;
         }
 	}
 	
+    // put the task into the scheduler
 	addThreadToScheduler( thread );
 	
 	printf("THREAD %d CREATED!\n\n", (uint32_t)thread->id);
@@ -102,22 +113,40 @@ void PendSV_Handler(void)
 	//Do FPP Scheduling
 	if(osInitialized)
 	{
+        // returns next task to run... NULL if no context switch is required
 		nextTask = runScheduler();
-		addThreadToScheduler(runningTask);
 	}
+    
+    // no context switch required
+    if( nextTask == NULL )
+    {
+        __enable_irq();
+        return;
+    }
 	
+    // context switch required
 	if( nextTask->id != runningTask->id && osInitialized && threadCreated )
 	{
 		printf("CONTEXT SWITCH REQUIRED...\n");
+        
+        // store context of old running task
 		runningTask->stackPointer = storeContext();
 		printf("STORED CONTEXT FROM TASK %d!\n", runningTask->id);
 
+        // set PSP to sp of new running task
 		__set_PSP(nextTask->stackPointer);
 		
+        // change thread states
 		nextTask->state = osThreadRunning;
-		runningTask->state = osThreadReady; 
+		runningTask->state = osThreadReady;
+        
+        // add old running task to ready list of scheduler
+        addThreadToScheduler(runningTask);
+        
+        // update runningTask
 		runningTask = nextTask;
 		
+        // restore context of new running task
 		restoreContext(runningTask->stackPointer);
 		printf("RESTORED CONTEXT FROM TASK %d!\n\n", runningTask->id);
 	}

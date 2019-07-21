@@ -29,9 +29,17 @@ void clearBitVector(osBetaPriority priority) {
 	scheduler.bitVector = scheduler.bitVector & ~(0x01 << priority);
 }
 
+bool threadIsRunning(osBetaThread_t *newThread) {
+    return runningTask == newThread;
+}
+
 //ADD THREAD TO SCHEDULER
 void addThreadToScheduler(osBetaThread_t *newThread) {
-	
+    
+    // do not add to readyList if the thread is already running
+    if(threadIsRunning(newThread))
+        return;
+    
 	newThread->next = NULL;
 	
 	//put node in position
@@ -55,7 +63,8 @@ void addThreadToScheduler(osBetaThread_t *newThread) {
 
 //REMOVE THREAD FROM SCHEDULER
 osBetaThread_t* removeThreadFromScheduler(osBetaThread_t* thread) {
-	osBetaThread_t *cursor = scheduler.readyList[thread->priority].head;
+	
+    osBetaThread_t *cursor = scheduler.readyList[thread->priority].head;
 	
 	if(cursor == NULL)
 		return NULL;
@@ -87,20 +96,25 @@ osBetaThread_t* removeThreadFromScheduler(osBetaThread_t* thread) {
 	return threadToRemove;
 }
 
-//GET HIGHEST PRIORITY
-osBetaPriority getHighestPriorityThread(void) {
-	//__asm("clz %0" : "=r" (highestPriority) : "r" (scheduler.bitVector));
+//GET HIGHEST PRIORITY THREAD WIHTOUT REMOVING IT FROM THE READY LIST OF SCHEDULER
+// currently O(n) runtime... if time, implement in O(1) using embedded assembly instruction
+osBetaPriority getHighestPriority(void) {
+	
+    //__asm("clz %0" : "=r" (highestPriority) : "r" (scheduler.bitVector));
 	for(int priority = 4; priority >= 0; priority--)
 	{
 		uint8_t result = scheduler.bitVector & (1 << priority);
 		if( result == (0x01 << priority))
 			return (osBetaPriority)priority;
 	}
+    // no tasks in ready list
+    return (osBetaPriority)0x0;
 }
 
 //RUN SCHEDULER
 osBetaThread_t* runScheduler(void) {
-	osBetaPriority highestPriority = getHighestPriorityThread();
+	
+    osBetaPriority highestPriority = getHighestPriority();
 	
 	if(runningTask->priority > highestPriority)
 		return NULL;
