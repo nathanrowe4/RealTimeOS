@@ -69,18 +69,21 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
 	for( uint8_t i = 0; i < 16; i++ )
 	{
 		thread->stackPointer -= 4;
-		
-		if( i == 0 )
-			(*(uint32_t*)thread->stackPointer) = (uint32_t)DEFAULT_STACK_PSR;
-		
-		else if( i == 1 )
-			(*(uint32_t*)thread->stackPointer) = (uint32_t)function;
-		
-		else if( i == 7 )
-			(*(uint32_t*)thread->stackPointer) = (uint32_t)args;
-		
-		else
-			(*(uint32_t*)thread->stackPointer) = (uint32_t)0;
+        
+        switch(i)
+        {
+            case 0:
+                (*(uint32_t*)thread->stackPointer) = (uint32_t)DEFAULT_STACK_PSR;
+                break;
+            case 1:
+                (*(uint32_t*)thread->stackPointer) = (uint32_t)function;
+                break;
+            case 7:
+                (*(uint32_t*)thread->stackPointer) = (uint32_t)args;
+                break;
+            default:
+                (*(uint32_t*)thread->stackPointer) = (uint32_t)0;
+        }
 	}
 	
 	addThreadToScheduler( thread );
