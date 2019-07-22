@@ -30,10 +30,8 @@ Rebuild target 'Target 1'
 compiling Retarget.c...
 compiling context.c...
 compiling beta_os_initialize.c...
-assembling startup_LPC17xx.s...
-compiling uart.c...
 compiling main_default.c...
-beta_os_defines.h(89): warning:  #1-D: last line of file ends without a newline
+beta_os_defines.h(103): warning:  #1-D: last line of file ends without a newline
   #endif
 beta_os_scheduler.h(20): warning:  #188-D: enumerated type mixed with another type
   osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { 
@@ -51,23 +49,29 @@ ULL,
 ULL } };
 beta_os_scheduler.h(101): warning:  #1-D: last line of file ends without a newline
   #endif
-blocking_semaphore.h(84): warning:  #1-D: last line of file ends without a newline
+blocking_semaphore.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-beta_os.h(170): warning:  #1-D: last line of file ends without a newline
+beta_os_mutex.h(11): warning:  #68-D: integer conversion resulted in a change of sign
+  		m->owner = -1;
+beta_os_mutex.h(86): warning:  #68-D: integer conversion resulted in a change of sign
+  			m->owner = -1;
+beta_os_mutex.h(93): warning:  #1-D: last line of file ends without a newline
   #endif
-main_default.c(24): warning:  #177-D: variable "argument"  was declared but never referenced
+beta_os.h(164): warning:  #1-D: last line of file ends without a newline
+  #endif
+main_default.c(25): warning:  #177-D: variable "argument"  was declared but never referenced
   	uint32_t *argument = args;
-main_default.c(48): warning:  #177-D: variable "argument"  was declared but never referenced
+main_default.c(46): warning:  #177-D: variable "argument"  was declared but never referenced
   	uint32_t *argument = args;
-main_default.c(72): warning:  #177-D: variable "argument"  was declared but never referenced
+main_default.c(70): warning:  #177-D: variable "argument"  was declared but never referenced
   	uint32_t *argument = args;
-main_default.c(98): warning:  #177-D: variable "c"  was declared but never referenced
-  	uint32_t c = 3;
-main_default.c: 10 warnings, 0 errors
+main_default.c: 12 warnings, 0 errors
+assembling startup_LPC17xx.s...
+compiling uart.c...
 compiling system_LPC17xx.c...
 linking...
-Program Size: Code=3964 RO-data=236 RW-data=288 ZI-data=8464  
-".\Objects\lab5.axf" - 0 Error(s), 10 Warning(s).
+Program Size: Code=4184 RO-data=236 RW-data=292 ZI-data=8484  
+".\Objects\lab5.axf" - 0 Error(s), 12 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -93,9 +97,9 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.0
       Include file:  Device\Include\LPC17xx.h
-      Source file:   Device\Source\ARM\startup_LPC17xx.s
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\system_LPC17xx.c
+      Source file:   Device\Source\ARM\startup_LPC17xx.s
 
    * Component: ARM::CMSIS:CORE:5.1.2
 Build Time Elapsed:  00:00:01

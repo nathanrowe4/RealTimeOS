@@ -22,6 +22,11 @@
 typedef void (*osBetaThreadFunc_t)(void *args); // defines pointer to function type that takes void* as a parameter and returns void
 
 typedef uint8_t osBetaThread_id;
+
+osBetaThread_id next_thread_id = 0;
+uint32_t next_mutex_id = 0;
+uint32_t next_semaphore_id = 0;
+
 ///betaOS Priority List
 //change NUM_PRIORITIES definition if this changes
 typedef enum {
@@ -71,11 +76,13 @@ typedef struct {
 } osBetaLinkedList_t;
 
 typedef struct {
+		uint32_t id;
     int32_t count;
     osBetaThread_t *waitList;
 } osBetaSemaphore_t;
 
 typedef struct {
+		uint32_t id;
     bool inUse;
 		osBetaThread_id owner;
     osBetaThread_t *waitList;
@@ -84,6 +91,13 @@ typedef struct {
 
 void triggerPendSV(void) {
 	SCB->ICSR = SCB->ICSR | (1<<28);
+}
+
+// returns id and increments global variable
+uint32_t getNextId(uint32_t *global_id) {
+    osBetaThread_id idToReturn = *global_id;
+    (*global_id)++;
+    return idToReturn;
 }
 
 #endif

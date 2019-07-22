@@ -16,3 +16,4 @@
 .\objects\main_default.o: C:\Software\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main_default.o: context.h
 .\objects\main_default.o: blocking_semaphore.h
+.\objects\main_default.o: beta_os_mutex.h

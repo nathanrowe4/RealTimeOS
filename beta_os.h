@@ -3,17 +3,10 @@
 
 #include "beta_os_scheduler.h"
 #include "blocking_semaphore.h"
+#include "beta_os_mutex.h"
 
-osBetaThread_id next_thread_id = 0;
 bool threadCreated = false;
 bool osInitialized = false;
-
-// returns id and increments global variable
-osBetaThread_id getNextId(void) {
-    osBetaThread_id idToReturn = next_thread_id;
-    next_thread_id++;
-    return idToReturn;
-}
 
 //INITIALIZE
 void osBetaInitialize(void)
@@ -54,23 +47,26 @@ void osBetaInitialize(void)
   __set_PSP((uint32_t)tcb[0].stackPointer - mainStackSize);
 	
     //set running task to main thread
-	runningTask = &tcb[getNextId()];
+	runningTask = &tcb[getNextId((uint32_t*)&next_thread_id)];
 	runningTask->state = osThreadRunning;
 	
 	osInitialized = true;
 	printf("OS BETA RTOS INITIALIZATION COMPLETE\n\n");
 	
+}
+
+void osBetaStart(void)
+{
+	printf("STARTING BETA OS\n");
 	__enable_irq();
-	
 }
 
 //CREATE THREAD
 osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBetaPriority priority) {
 	
-	__disable_irq();
 	
 	// access the tcb of the thread to be created and increment global id tracker
-	osBetaThread_t *thread = &tcb[getNextId()];
+	osBetaThread_t *thread = &tcb[getNextId((uint32_t*)&next_thread_id)];
 	
 	printf("CREATING THREAD %d...\n", (uint32_t)thread->id);
 	
@@ -108,8 +104,6 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
 	
 	printf("THREAD %d CREATED!\n\n", (uint32_t)thread->id);
 	threadCreated = true;
-	
-	__enable_irq();
 	
 	return thread->id;
 	

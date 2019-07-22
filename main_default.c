@@ -11,6 +11,7 @@
 
 uint32_t msTicks = 0;
 osBetaSemaphore_t sem = { .count = 0 };
+osBetaMutex_t mutex;
 
 void SysTick_Handler(void) {
   msTicks++;
@@ -20,66 +21,60 @@ void SysTick_Handler(void) {
 
 void threadFunc3(void *args)
 {
-	uint32_t count = 0;
+	release(&mutex, runningTask->id);
 	uint32_t *argument = args;
-	uint32_t period = 15000;
-	uint32_t prev = 0;
+	uint32_t period = 500;
+	uint32_t prev = -period;
 	
 	while (true)
 	{
-		if(count % 30000 == 0)
-			printf("threadFunc3: %d\n", sem.count);
-		
 		if((uint32_t)(msTicks - prev) >= period)
 		{
-			wait(&sem);
+			printf("threadFunc3: %d\n", 3);
 			prev += period;
 		}
-		count++;
 	}
 }
 
 void threadFunc1(void *args)
 {
-	wait(&sem);
-	uint32_t period = 10000;
-	uint32_t prev = 0;
-	uint32_t count = 0;
+	acquire(&mutex, runningTask->id);
+	uint32_t releasePeriod = 5000;
+	uint32_t period = 500;
+	uint32_t prev = -period;
+	uint32_t releasePrev = 0;
 	uint32_t *argument = args;
-	bool threadCreated = false;
+	bool mutexReleased = false;
 	
 	while (true)
 	{
-		if(count % 30000 == 0)
-			printf("threadFunc1: %d\n", sem.count);
-		if((uint32_t)(msTicks - prev) >= period && !threadCreated)
+		if((uint32_t)(msTicks - prev) >= period)
 		{
-			osBetaThread_id thread3_id = osBetaCreateThread(&threadFunc3, NULL, Chad);
-			threadCreated = true;
+			printf("threadFunc1: %d\n", 1);
 			prev += period;
 		}
-		
-		count++;
+		if(!mutexReleased && (uint32_t)(msTicks - releasePrev) >= releasePeriod)
+		{
+			release(&mutex, runningTask->id);
+			releasePrev += releasePeriod;
+			mutexReleased = true;
+		}
 	}
 }
 
 void threadFunc2(void *args)
 {
-	//wait(&sem);
-	uint32_t period = 5000;
-	uint32_t prev = 0;
-	uint32_t count = 0;
+	acquire(&mutex, runningTask->id);
+	uint32_t period = 500;
+	uint32_t prev = -period;
 	uint32_t *argument = args;
 	while (true)
 	{
-		if(count % 30000 == 0)
-			printf("threadFunc2: %d\n", sem.count);
 		if((uint32_t)(msTicks - prev) >= period)
 		{
-			signal(&sem);
+			printf("threadFunc2: %d\n", 2);
 			prev += period;
 		}
-		count++;
 	}
 	
 }
@@ -97,9 +92,13 @@ int main(void) {
 	uint32_t b = 2;
 	uint32_t c = 3;
 	
-	osBetaThread_id thread1_id = osBetaCreateThread(&threadFunc1, (void *)&a, Alpha);
-	osBetaThread_id thread2_id = osBetaCreateThread(&threadFunc2, (void *)&b, Normal);
-	//osBetaThread_id thread3_id = osBetaCreateThread(&threadFunc3, (void *)&c, Alpha);
+	initMutex(&mutex);
+	
+	osBetaThread_id thread1_id = osBetaCreateThread(&threadFunc1, (void *)&a, Chad);
+	osBetaThread_id thread2_id = osBetaCreateThread(&threadFunc2, (void *)&b, Chad);
+	osBetaThread_id thread3_id = osBetaCreateThread(&threadFunc3, (void *)&c, Chad);
+	
+	osBetaStart();
 	
 	while(true) {
 		if((uint32_t)(msTicks - prev) >= period) {

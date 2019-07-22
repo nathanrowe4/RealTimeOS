@@ -6,6 +6,7 @@
 //INIT
 void initSemaphore(osBetaSemaphore_t *s, int32_t count ) {
     
+		s->id = getNextId(&next_semaphore_id);
     s->count = count;
 		s->waitList = NULL;
     
@@ -26,9 +27,7 @@ void blockTask(osBetaSemaphore_t *s) {
             cursor = cursor->next;
 			
         cursor->next = runningTask;
-		}	
-		
-		printf("STORED CONTEXT FROM TASK %d!\n", runningTask->id);
+		}
 
 		runningTask->state = osThreadBlocked;
 		
