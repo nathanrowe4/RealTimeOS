@@ -70,4 +70,9 @@ typedef struct {
 	osBetaPriority priority;
 } osBetaLinkedList_t;
 
+typedef struct {
+    int32_t count;
+    osBetaThread_t *waitList;
+} osBetaSemaphore_t;
+
 #endif
