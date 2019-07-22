@@ -2,6 +2,7 @@
 #define BETA_OS_H
 
 #include "beta_os_scheduler.h"
+#include "blocking_semaphore.h"
 
 osBetaThread_id next_thread_id = 0;
 bool threadCreated = false;
@@ -66,6 +67,8 @@ void osBetaInitialize(void)
 //CREATE THREAD
 osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBetaPriority priority) {
 	
+	__disable_irq();
+	
 	// access the tcb of the thread to be created and increment global id tracker
 	osBetaThread_t *thread = &tcb[getNextId()];
 	
@@ -101,9 +104,12 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
 	
   // put the task into the scheduler
 	addThreadToScheduler( thread );
+	triggerPendSV();
 	
 	printf("THREAD %d CREATED!\n\n", (uint32_t)thread->id);
 	threadCreated = true;
+	
+	__enable_irq();
 	
 	return thread->id;
 	
@@ -129,7 +135,7 @@ void PendSV_Handler(void)
   }
 	
   // context switch required
-	if( nextTask->id != runningTask->id && osInitialized && threadCreated )
+	if( ( runningTask->state == osThreadBlocked || nextTask->id != runningTask->id ) && osInitialized && threadCreated )
 	{
 		printf("\nCONTEXT SWITCH REQUIRED...\n");
         
@@ -142,11 +148,14 @@ void PendSV_Handler(void)
 		
     // change thread states
 		nextTask->state = osThreadRunning;
-		runningTask->state = osThreadReady;
-        
-    // add old running task to ready list of scheduler
-    addThreadToScheduler(runningTask);
-        
+		if (runningTask->state != osThreadBlocked)
+		{
+				runningTask->state = osThreadReady;
+						
+				// add old running task to ready list of scheduler
+				addThreadToScheduler(runningTask);
+		}   
+		
     // update runningTask
 		runningTask = nextTask;
 		

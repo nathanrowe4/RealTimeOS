@@ -425,6 +425,16 @@
               <FileType>5</FileType>
               <FilePath>.\beta_os_scheduler.h</FilePath>
             </File>
+            <File>
+              <FileName>blocking_semaphore.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\blocking_semaphore.h</FilePath>
+            </File>
+            <File>
+              <FileName>beta_os_mutex.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\beta_os_mutex.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

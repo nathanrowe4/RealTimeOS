@@ -34,6 +34,8 @@ void addThreadToScheduler(osBetaThread_t *newThread) {
 
 	newThread->next = NULL;
 	
+	newThread->state = osThreadReady;
+	
 	//put node in position
 	osBetaPriority priority = newThread->priority;
 	osBetaThread_t *cursor = scheduler.readyList[priority].head;
@@ -90,12 +92,10 @@ osBetaPriority getHighestPriority(void) {
 osBetaThread_t* runScheduler(void) {
   osBetaPriority highestPriority = getHighestPriority();
 	
-	if(runningTask->priority > highestPriority) {
-		return NULL;
-	}
-	else {
+	if(runningTask == NULL || runningTask->state == osThreadBlocked || runningTask->priority <= highestPriority)
 		return removeThreadFromScheduler(highestPriority);
-	}
+	else
+		return NULL;
 }
 
 #endif

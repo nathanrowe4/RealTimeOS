@@ -68,11 +68,22 @@ typedef struct osBetaThread_s {
 typedef struct {
 	osBetaThread_t *head;
 	osBetaPriority priority;
-} osBetaLinkedList_t; //TODO: do we need the priority in the linked list? Technically we know what it is based on the index of the readyList or the TCB itself...
+} osBetaLinkedList_t;
 
 typedef struct {
     int32_t count;
     osBetaThread_t *waitList;
 } osBetaSemaphore_t;
+
+typedef struct {
+    bool inUse;
+		osBetaThread_id owner;
+    osBetaThread_t *waitList;
+	
+} osBetaMutex_t;
+
+void triggerPendSV(void) {
+	SCB->ICSR = SCB->ICSR | (1<<28);
+}
 
 #endif

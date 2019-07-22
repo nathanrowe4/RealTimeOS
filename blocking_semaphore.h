@@ -4,37 +4,53 @@
 #include "beta_os_defines.h"
 
 //INIT
-void init(osBetaSemaphore_t *s, uint32_t count) {
+void initSemaphore(osBetaSemaphore_t *s, int32_t count ) {
     
-    *s = count;
+    s->count = count;
+		s->waitList = NULL;
     
 }
 
 //BLOCK
 void blockTask(osBetaSemaphore_t *s) {
+	
+		printf("BLOCKING TASK %d!\n", runningTask->id);
     
     osBetaThread_t *cursor = s->waitList;
     
     if(cursor == NULL)
         s->waitList = runningTask;
+		
     else {
         while(cursor->next != NULL)
             cursor = cursor->next;
-        
+			
         cursor->next = runningTask;
-    }
+		}	
+		
+		printf("STORED CONTEXT FROM TASK %d!\n", runningTask->id);
+
+		runningTask->state = osThreadBlocked;
+		
+		triggerPendSV();
+    
     
 }
 
 //UNBLOCK
-void unblockTask(osBetaSemaphore_t *s) {
-    
+void unblockTask(osBetaSemaphore_t *s) {  
+	
     if(s->waitList == NULL)
         return;
     else {
+				printf("UNBLOCKING TASK %d!\n", s->waitList->id);
         osBetaThread_t *thread = s->waitList;
+			
+				thread->state = osThreadReady;
         s->waitList = thread->next;
+			
         addThreadToScheduler(thread);
+				triggerPendSV();
     }
     
 }
@@ -43,9 +59,9 @@ void unblockTask(osBetaSemaphore_t *s) {
 void wait(osBetaSemaphore_t *s) {
     __disable_irq();
     
-    (*s)--;
-    
-    if( *s >= 0) {
+		(s->count)--;
+	
+    if( s->count < 0 ) {
         blockTask(s);
     }
     
@@ -56,9 +72,9 @@ void wait(osBetaSemaphore_t *s) {
 void signal(osBetaSemaphore_t *s) {
     __disable_irq();
     
-    (*s)++;
+    (s->count)++;
     
-    if( *s <= 0 ) {
+    if( s->count - 1 < 0 ) {
         unblockTask(s);
     }
     
