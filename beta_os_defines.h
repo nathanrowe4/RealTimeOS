@@ -68,7 +68,7 @@ typedef struct osBetaThread_s {
 typedef struct {
 	osBetaThread_t *head;
 	osBetaPriority priority;
-} osBetaLinkedList_t;
+} osBetaLinkedList_t; //TODO: do we need the priority in the linked list? Technically we know what it is based on the index of the readyList or the TCB itself...
 
 typedef struct {
     int32_t count;

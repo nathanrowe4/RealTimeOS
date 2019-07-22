@@ -5,7 +5,9 @@
 
 //INIT
 void init(osBetaSemaphore_t *s, uint32_t count) {
+    
     *s = count;
+    
 }
 
 //WAIT
