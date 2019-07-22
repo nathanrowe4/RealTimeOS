@@ -31,10 +31,14 @@ Section Cross References
     main_default.o(i.blockTaskMutex) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.blockTaskMutex) refers to _printf_dec.o(.text) for _printf_int_dec
     main_default.o(i.blockTaskMutex) refers to noretval__2printf.o(.text) for __2printf
+    main_default.o(i.blockTaskMutex) refers to main_default.o(i.getThread) for getThread
+    main_default.o(i.blockTaskMutex) refers to main_default.o(i.removeThreadFromScheduler) for removeThreadFromScheduler
+    main_default.o(i.blockTaskMutex) refers to main_default.o(i.addThreadToScheduler) for addThreadToScheduler
     main_default.o(i.blockTaskMutex) refers to main_default.o(i.triggerPendSV) for triggerPendSV
     main_default.o(i.blockTaskMutex) refers to main_default.o(.data) for runningTask
     main_default.o(i.clearBitVector) refers to main_default.o(.bss) for scheduler
     main_default.o(i.getHighestPriority) refers to main_default.o(.bss) for scheduler
+    main_default.o(i.getThread) refers to main_default.o(.data) for tcb
     main_default.o(i.initMutex) refers to main_default.o(i.getNextId) for getNextId
     main_default.o(i.initMutex) refers to main_default.o(.data) for next_mutex_id
     main_default.o(i.initSemaphore) refers to main_default.o(i.getNextId) for getNextId
@@ -46,8 +50,6 @@ Section Cross References
     main_default.o(i.main) refers to main_default.o(i.osBetaStart) for osBetaStart
     main_default.o(i.main) refers to system_lpc17xx.o(.data) for SystemCoreClock
     main_default.o(i.main) refers to main_default.o(.bss) for mutex
-    main_default.o(i.main) refers to main_default.o(i.threadFunc1) for threadFunc1
-    main_default.o(i.main) refers to main_default.o(i.threadFunc2) for threadFunc2
     main_default.o(i.main) refers to main_default.o(i.threadFunc3) for threadFunc3
     main_default.o(i.main) refers to main_default.o(.data) for msTicks
     main_default.o(i.osBetaCreateThread) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
@@ -67,6 +69,7 @@ Section Cross References
     main_default.o(i.release) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.release) refers to _printf_dec.o(.text) for _printf_int_dec
     main_default.o(i.release) refers to noretval__2printf.o(.text) for __2printf
+    main_default.o(i.release) refers to main_default.o(i.getThread) for getThread
     main_default.o(i.release) refers to main_default.o(i.unblockTaskMutex) for unblockTaskMutex
     main_default.o(i.removeThreadFromScheduler) refers to main_default.o(i.clearBitVector) for clearBitVector
     main_default.o(i.removeThreadFromScheduler) refers to main_default.o(.bss) for scheduler
@@ -86,17 +89,20 @@ Section Cross References
     main_default.o(i.threadFunc2) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
     main_default.o(i.threadFunc2) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.threadFunc2) refers to _printf_dec.o(.text) for _printf_int_dec
-    main_default.o(i.threadFunc2) refers to main_default.o(i.acquire) for acquire
     main_default.o(i.threadFunc2) refers to noretval__2printf.o(.text) for __2printf
-    main_default.o(i.threadFunc2) refers to main_default.o(.data) for runningTask
-    main_default.o(i.threadFunc2) refers to main_default.o(.bss) for mutex
+    main_default.o(i.threadFunc2) refers to main_default.o(i.osBetaCreateThread) for osBetaCreateThread
+    main_default.o(i.threadFunc2) refers to main_default.o(.data) for msTicks
+    main_default.o(i.threadFunc2) refers to main_default.o(i.threadFunc1) for threadFunc1
     main_default.o(i.threadFunc3) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
     main_default.o(i.threadFunc3) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.threadFunc3) refers to _printf_dec.o(.text) for _printf_int_dec
-    main_default.o(i.threadFunc3) refers to main_default.o(i.release) for release
+    main_default.o(i.threadFunc3) refers to main_default.o(i.acquire) for acquire
     main_default.o(i.threadFunc3) refers to noretval__2printf.o(.text) for __2printf
+    main_default.o(i.threadFunc3) refers to main_default.o(i.osBetaCreateThread) for osBetaCreateThread
+    main_default.o(i.threadFunc3) refers to main_default.o(i.release) for release
     main_default.o(i.threadFunc3) refers to main_default.o(.data) for runningTask
     main_default.o(i.threadFunc3) refers to main_default.o(.bss) for mutex
+    main_default.o(i.threadFunc3) refers to main_default.o(i.threadFunc2) for threadFunc2
     main_default.o(i.unblockTask) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
     main_default.o(i.unblockTask) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.unblockTask) refers to _printf_dec.o(.text) for _printf_int_dec
@@ -107,6 +113,8 @@ Section Cross References
     main_default.o(i.unblockTaskMutex) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
     main_default.o(i.unblockTaskMutex) refers to _printf_dec.o(.text) for _printf_int_dec
     main_default.o(i.unblockTaskMutex) refers to noretval__2printf.o(.text) for __2printf
+    main_default.o(i.unblockTaskMutex) refers to main_default.o(i.getHighestWaitListPriority) for getHighestWaitListPriority
+    main_default.o(i.unblockTaskMutex) refers to main_default.o(i.acquire) for acquire
     main_default.o(i.unblockTaskMutex) refers to main_default.o(i.addThreadToScheduler) for addThreadToScheduler
     main_default.o(i.unblockTaskMutex) refers to main_default.o(i.triggerPendSV) for triggerPendSV
     main_default.o(i.wait) refers to main_default.o(i.blockTask) for blockTask
@@ -333,24 +341,24 @@ Image Symbol Table
     RESET                                    0x00000000   Section      204  startup_lpc17xx.o(RESET)
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_ldiv0.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_ldiv0_sigfpe.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
@@ -360,46 +368,46 @@ Image Symbol Table
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  lludivv7m.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_v6.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __2printf.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_v6.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_char_file.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __2printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  noretval__2printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_dec.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_d.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
@@ -495,27 +503,29 @@ Image Symbol Table
     i.acquire                                0x000009d4   Section        0  main_default.o(i.acquire)
     i.addThreadToScheduler                   0x00000a50   Section        0  main_default.o(i.addThreadToScheduler)
     i.blockTaskMutex                         0x00000a84   Section        0  main_default.o(i.blockTaskMutex)
-    i.clearBitVector                         0x00000ad8   Section        0  main_default.o(i.clearBitVector)
-    i.ferror                                 0x00000aec   Section        0  retarget.o(i.ferror)
-    i.fputc                                  0x00000af4   Section        0  retarget.o(i.fputc)
-    i.getFrequency                           0x00000b04   Section        0  uart.o(i.getFrequency)
-    i.getHighestPriority                     0x00000b4c   Section        0  main_default.o(i.getHighestPriority)
-    i.getNextId                              0x00000b78   Section        0  main_default.o(i.getNextId)
-    i.initMutex                              0x00000b84   Section        0  main_default.o(i.initMutex)
-    i.main                                   0x00000ba4   Section        0  main_default.o(i.main)
-    i.osBetaCreateThread                     0x00000c88   Section        0  main_default.o(i.osBetaCreateThread)
-    i.osBetaInitialize                       0x00000d48   Section        0  main_default.o(i.osBetaInitialize)
-    i.osBetaStart                            0x00000e60   Section        0  main_default.o(i.osBetaStart)
-    i.release                                0x00000e80   Section        0  main_default.o(i.release)
-    i.removeThreadFromScheduler              0x00000efc   Section        0  main_default.o(i.removeThreadFromScheduler)
-    i.runScheduler                           0x00000f2c   Section        0  main_default.o(i.runScheduler)
-    i.sendchar                               0x00000f60   Section        0  retarget.o(i.sendchar)
-    i.setBitVector                           0x00000fa4   Section        0  main_default.o(i.setBitVector)
-    i.threadFunc1                            0x00000fb8   Section        0  main_default.o(i.threadFunc1)
-    i.threadFunc2                            0x00001030   Section        0  main_default.o(i.threadFunc2)
-    i.threadFunc3                            0x0000107c   Section        0  main_default.o(i.threadFunc3)
-    i.triggerPendSV                          0x000010c8   Section        0  main_default.o(i.triggerPendSV)
-    i.unblockTaskMutex                       0x000010dc   Section        0  main_default.o(i.unblockTaskMutex)
+    i.clearBitVector                         0x00000b10   Section        0  main_default.o(i.clearBitVector)
+    i.ferror                                 0x00000b24   Section        0  retarget.o(i.ferror)
+    i.fputc                                  0x00000b2c   Section        0  retarget.o(i.fputc)
+    i.getFrequency                           0x00000b3c   Section        0  uart.o(i.getFrequency)
+    i.getHighestPriority                     0x00000b84   Section        0  main_default.o(i.getHighestPriority)
+    i.getHighestWaitListPriority             0x00000bb0   Section        0  main_default.o(i.getHighestWaitListPriority)
+    i.getNextId                              0x00000bce   Section        0  main_default.o(i.getNextId)
+    i.getThread                              0x00000bdc   Section        0  main_default.o(i.getThread)
+    i.initMutex                              0x00000bf0   Section        0  main_default.o(i.initMutex)
+    i.main                                   0x00000c10   Section        0  main_default.o(i.main)
+    i.osBetaCreateThread                     0x00000cd4   Section        0  main_default.o(i.osBetaCreateThread)
+    i.osBetaInitialize                       0x00000d98   Section        0  main_default.o(i.osBetaInitialize)
+    i.osBetaStart                            0x00000eb0   Section        0  main_default.o(i.osBetaStart)
+    i.release                                0x00000ed0   Section        0  main_default.o(i.release)
+    i.removeThreadFromScheduler              0x00000f5c   Section        0  main_default.o(i.removeThreadFromScheduler)
+    i.runScheduler                           0x00000f8c   Section        0  main_default.o(i.runScheduler)
+    i.sendchar                               0x00000fc0   Section        0  retarget.o(i.sendchar)
+    i.setBitVector                           0x00001004   Section        0  main_default.o(i.setBitVector)
+    i.threadFunc1                            0x00001018   Section        0  main_default.o(i.threadFunc1)
+    i.threadFunc2                            0x00001084   Section        0  main_default.o(i.threadFunc2)
+    i.threadFunc3                            0x000010f0   Section        0  main_default.o(i.threadFunc3)
+    i.triggerPendSV                          0x000011a0   Section        0  main_default.o(i.triggerPendSV)
+    i.unblockTaskMutex                       0x000011b4   Section        0  main_default.o(i.unblockTaskMutex)
     .data                                    0x10000000   Section      244  main_default.o(.data)
     .data                                    0x100000f4   Section       12  retarget.o(.data)
     .data                                    0x10000100   Section       32  uart.o(.data)
@@ -697,30 +707,32 @@ Image Symbol Table
     _sys_exit                                0x000009cf   Thumb Code     4  retarget.o(i._sys_exit)
     acquire                                  0x000009d5   Thumb Code    52  main_default.o(i.acquire)
     addThreadToScheduler                     0x00000a51   Thumb Code    48  main_default.o(i.addThreadToScheduler)
-    blockTaskMutex                           0x00000a85   Thumb Code    58  main_default.o(i.blockTaskMutex)
-    clearBitVector                           0x00000ad9   Thumb Code    16  main_default.o(i.clearBitVector)
-    ferror                                   0x00000aed   Thumb Code     8  retarget.o(i.ferror)
-    fputc                                    0x00000af5   Thumb Code    14  retarget.o(i.fputc)
-    getFrequency                             0x00000b05   Thumb Code    62  uart.o(i.getFrequency)
-    getHighestPriority                       0x00000b4d   Thumb Code    38  main_default.o(i.getHighestPriority)
-    getNextId                                0x00000b79   Thumb Code    12  main_default.o(i.getNextId)
-    initMutex                                0x00000b85   Thumb Code    26  main_default.o(i.initMutex)
-    main                                     0x00000ba5   Thumb Code   170  main_default.o(i.main)
-    osBetaCreateThread                       0x00000c89   Thumb Code   132  main_default.o(i.osBetaCreateThread)
-    osBetaInitialize                         0x00000d49   Thumb Code   196  main_default.o(i.osBetaInitialize)
-    osBetaStart                              0x00000e61   Thumb Code    12  main_default.o(i.osBetaStart)
-    release                                  0x00000e81   Thumb Code    52  main_default.o(i.release)
-    removeThreadFromScheduler                0x00000efd   Thumb Code    44  main_default.o(i.removeThreadFromScheduler)
-    runScheduler                             0x00000f2d   Thumb Code    46  main_default.o(i.runScheduler)
-    sendchar                                 0x00000f61   Thumb Code    64  retarget.o(i.sendchar)
-    setBitVector                             0x00000fa5   Thumb Code    16  main_default.o(i.setBitVector)
-    threadFunc1                              0x00000fb9   Thumb Code    88  main_default.o(i.threadFunc1)
-    threadFunc2                              0x00001031   Thumb Code    44  main_default.o(i.threadFunc2)
-    threadFunc3                              0x0000107d   Thumb Code    44  main_default.o(i.threadFunc3)
-    triggerPendSV                            0x000010c9   Thumb Code    14  main_default.o(i.triggerPendSV)
-    unblockTaskMutex                         0x000010dd   Thumb Code    46  main_default.o(i.unblockTaskMutex)
-    Region$$Table$$Base                      0x00001124   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00001144   Number         0  anon$$obj.o(Region$$Table)
+    blockTaskMutex                           0x00000a85   Thumb Code   116  main_default.o(i.blockTaskMutex)
+    clearBitVector                           0x00000b11   Thumb Code    16  main_default.o(i.clearBitVector)
+    ferror                                   0x00000b25   Thumb Code     8  retarget.o(i.ferror)
+    fputc                                    0x00000b2d   Thumb Code    14  retarget.o(i.fputc)
+    getFrequency                             0x00000b3d   Thumb Code    62  uart.o(i.getFrequency)
+    getHighestPriority                       0x00000b85   Thumb Code    38  main_default.o(i.getHighestPriority)
+    getHighestWaitListPriority               0x00000bb1   Thumb Code    30  main_default.o(i.getHighestWaitListPriority)
+    getNextId                                0x00000bcf   Thumb Code    12  main_default.o(i.getNextId)
+    getThread                                0x00000bdd   Thumb Code    14  main_default.o(i.getThread)
+    initMutex                                0x00000bf1   Thumb Code    26  main_default.o(i.initMutex)
+    main                                     0x00000c11   Thumb Code   146  main_default.o(i.main)
+    osBetaCreateThread                       0x00000cd5   Thumb Code   134  main_default.o(i.osBetaCreateThread)
+    osBetaInitialize                         0x00000d99   Thumb Code   196  main_default.o(i.osBetaInitialize)
+    osBetaStart                              0x00000eb1   Thumb Code    12  main_default.o(i.osBetaStart)
+    release                                  0x00000ed1   Thumb Code    68  main_default.o(i.release)
+    removeThreadFromScheduler                0x00000f5d   Thumb Code    44  main_default.o(i.removeThreadFromScheduler)
+    runScheduler                             0x00000f8d   Thumb Code    46  main_default.o(i.runScheduler)
+    sendchar                                 0x00000fc1   Thumb Code    64  retarget.o(i.sendchar)
+    setBitVector                             0x00001005   Thumb Code    16  main_default.o(i.setBitVector)
+    threadFunc1                              0x00001019   Thumb Code    74  main_default.o(i.threadFunc1)
+    threadFunc2                              0x00001085   Thumb Code    78  main_default.o(i.threadFunc2)
+    threadFunc3                              0x000010f1   Thumb Code   140  main_default.o(i.threadFunc3)
+    triggerPendSV                            0x000011a1   Thumb Code    14  main_default.o(i.triggerPendSV)
+    unblockTaskMutex                         0x000011b5   Thumb Code    70  main_default.o(i.unblockTaskMutex)
+    Region$$Table$$Base                      0x00001214   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001234   Number         0  anon$$obj.o(Region$$Table)
     next_thread_id                           0x10000000   Data           1  main_default.o(.data)
     next_mutex_id                            0x10000004   Data           4  main_default.o(.data)
     next_semaphore_id                        0x10000008   Data           4  main_default.o(.data)
@@ -762,139 +774,142 @@ Memory Map of the image
 
   Image Entry point : 0x00000185
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00001268, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001358, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001144, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001234, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000cc   Data   RO          444    RESET               startup_lpc17xx.o
-    0x000000cc   0x000000cc   0x00000008   Code   RO          530  * !!!main             c_w.l(__main.o)
-    0x000000d4   0x000000d4   0x00000034   Code   RO          704    !!!scatter          c_w.l(__scatter.o)
-    0x00000108   0x00000108   0x0000001a   Code   RO          706    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x00000000   0x00000000   0x000000cc   Data   RO          456    RESET               startup_lpc17xx.o
+    0x000000cc   0x000000cc   0x00000008   Code   RO          542  * !!!main             c_w.l(__main.o)
+    0x000000d4   0x000000d4   0x00000034   Code   RO          716    !!!scatter          c_w.l(__scatter.o)
+    0x00000108   0x00000108   0x0000001a   Code   RO          718    !!handler_copy      c_w.l(__scatter_copy.o)
     0x00000122   0x00000122   0x00000002   PAD
-    0x00000124   0x00000124   0x0000001c   Code   RO          708    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000140   0x00000140   0x00000000   Code   RO          525    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
-    0x00000140   0x00000140   0x00000006   Code   RO          524    .ARM.Collect$$_printf_percent$$00000009  c_w.l(_printf_d.o)
-    0x00000146   0x00000146   0x00000004   Code   RO          541    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
-    0x0000014a   0x0000014a   0x00000002   Code   RO          578    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          591    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          593    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          596    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          598    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          600    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          603    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          605    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          607    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          609    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          611    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          613    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          615    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          617    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          619    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          621    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          623    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          627    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          629    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          631    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000000   Code   RO          633    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x0000014c   0x0000014c   0x00000002   Code   RO          634    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000002   Code   RO          658    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          684    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          686    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          689    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          692    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          694    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000000   Code   RO          697    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x00000150   0x00000150   0x00000002   Code   RO          698    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO          532    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x00000152   0x00000152   0x00000000   Code   RO          545    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x00000152   0x00000152   0x00000006   Code   RO          557    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x00000158   0x00000158   0x00000000   Code   RO          547    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x00000158   0x00000158   0x00000004   Code   RO          548    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x0000015c   0x0000015c   0x00000000   Code   RO          550    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x0000015c   0x0000015c   0x00000008   Code   RO          551    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x00000164   0x00000164   0x00000002   Code   RO          582    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x00000166   0x00000166   0x00000000   Code   RO          636    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x00000166   0x00000166   0x00000004   Code   RO          637    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x0000016a   0x0000016a   0x00000006   Code   RO          638    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x00000124   0x00000124   0x0000001c   Code   RO          720    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000140   0x00000140   0x00000000   Code   RO          537    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
+    0x00000140   0x00000140   0x00000006   Code   RO          536    .ARM.Collect$$_printf_percent$$00000009  c_w.l(_printf_d.o)
+    0x00000146   0x00000146   0x00000004   Code   RO          553    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
+    0x0000014a   0x0000014a   0x00000002   Code   RO          590    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          603    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          605    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          608    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          610    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          612    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          615    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          617    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          619    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          621    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          623    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          625    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          627    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          629    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          631    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          633    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          635    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          639    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          641    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          643    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000000   Code   RO          645    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x0000014c   0x0000014c   0x00000002   Code   RO          646    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000002   Code   RO          670    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          696    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          698    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          701    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          704    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          706    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000000   Code   RO          709    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x00000150   0x00000150   0x00000002   Code   RO          710    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO          544    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x00000152   0x00000152   0x00000000   Code   RO          557    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x00000152   0x00000152   0x00000006   Code   RO          569    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x00000158   0x00000158   0x00000000   Code   RO          559    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x00000158   0x00000158   0x00000004   Code   RO          560    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x0000015c   0x0000015c   0x00000000   Code   RO          562    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x0000015c   0x0000015c   0x00000008   Code   RO          563    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x00000164   0x00000164   0x00000002   Code   RO          594    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x00000166   0x00000166   0x00000000   Code   RO          648    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x00000166   0x00000166   0x00000004   Code   RO          649    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x0000016a   0x0000016a   0x00000006   Code   RO          650    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x00000170   0x00000170   0x00000014   Code   RO            1    .emb_text           context.o
-    0x00000184   0x00000184   0x0000003c   Code   RO          446  * .text               startup_lpc17xx.o
-    0x000001c0   0x000001c0   0x00000018   Code   RO          498    .text               c_w.l(noretval__2printf.o)
-    0x000001d8   0x000001d8   0x00000068   Code   RO          500    .text               c_w.l(__printf.o)
-    0x00000240   0x00000240   0x00000078   Code   RO          502    .text               c_w.l(_printf_dec.o)
-    0x000002b8   0x000002b8   0x00000006   Code   RO          528    .text               c_w.l(heapauxi.o)
+    0x00000184   0x00000184   0x0000003c   Code   RO          458  * .text               startup_lpc17xx.o
+    0x000001c0   0x000001c0   0x00000018   Code   RO          510    .text               c_w.l(noretval__2printf.o)
+    0x000001d8   0x000001d8   0x00000068   Code   RO          512    .text               c_w.l(__printf.o)
+    0x00000240   0x00000240   0x00000078   Code   RO          514    .text               c_w.l(_printf_dec.o)
+    0x000002b8   0x000002b8   0x00000006   Code   RO          540    .text               c_w.l(heapauxi.o)
     0x000002be   0x000002be   0x00000002   PAD
-    0x000002c0   0x000002c0   0x00000024   Code   RO          539    .text               c_w.l(_printf_char_file.o)
-    0x000002e4   0x000002e4   0x00000012   Code   RO          567    .text               c_w.l(exit.o)
-    0x000002f6   0x000002f6   0x00000006   Code   RO          322    i.Free              uart.o
-    0x000002fc   0x000002fc   0x00000004   Code   RO          445    .ARM.__at_0x02FC    startup_lpc17xx.o
-    0x00000300   0x00000300   0x0000008a   Code   RO          526    .text               c_w.l(rt_memcpy_v6.o)
-    0x0000038a   0x0000038a   0x000000b2   Code   RO          537    .text               c_w.l(_printf_intcommon.o)
-    0x0000043c   0x0000043c   0x00000064   Code   RO          542    .text               c_w.l(rt_memcpy_w.o)
-    0x000004a0   0x000004a0   0x00000030   Code   RO          561    .text               c_w.l(_printf_char_common.o)
-    0x000004d0   0x000004d0   0x0000004a   Code   RO          563    .text               c_w.l(sys_stackheap_outer.o)
+    0x000002c0   0x000002c0   0x00000024   Code   RO          551    .text               c_w.l(_printf_char_file.o)
+    0x000002e4   0x000002e4   0x00000012   Code   RO          579    .text               c_w.l(exit.o)
+    0x000002f6   0x000002f6   0x00000006   Code   RO          334    i.Free              uart.o
+    0x000002fc   0x000002fc   0x00000004   Code   RO          457    .ARM.__at_0x02FC    startup_lpc17xx.o
+    0x00000300   0x00000300   0x0000008a   Code   RO          538    .text               c_w.l(rt_memcpy_v6.o)
+    0x0000038a   0x0000038a   0x000000b2   Code   RO          549    .text               c_w.l(_printf_intcommon.o)
+    0x0000043c   0x0000043c   0x00000064   Code   RO          554    .text               c_w.l(rt_memcpy_w.o)
+    0x000004a0   0x000004a0   0x00000030   Code   RO          573    .text               c_w.l(_printf_char_common.o)
+    0x000004d0   0x000004d0   0x0000004a   Code   RO          575    .text               c_w.l(sys_stackheap_outer.o)
     0x0000051a   0x0000051a   0x00000002   PAD
-    0x0000051c   0x0000051c   0x00000008   Code   RO          579    .text               c_w.l(libspace.o)
-    0x00000524   0x00000524   0x00000024   Code   RO          323    i.FreeRcv           uart.o
-    0x00000548   0x00000548   0x00000024   Code   RO          324    i.FreeSnd           uart.o
+    0x0000051c   0x0000051c   0x00000008   Code   RO          591    .text               c_w.l(libspace.o)
+    0x00000524   0x00000524   0x00000024   Code   RO          335    i.FreeRcv           uart.o
+    0x00000548   0x00000548   0x00000024   Code   RO          336    i.FreeSnd           uart.o
     0x0000056c   0x0000056c   0x00000128   Code   RO           23    i.PendSV_Handler    main_default.o
     0x00000694   0x00000694   0x00000028   Code   RO           24    i.SysTick_Handler   main_default.o
-    0x000006bc   0x000006bc   0x00000140   Code   RO          456    i.SystemInit        system_lpc17xx.o
-    0x000007fc   0x000007fc   0x00000068   Code   RO          328    i.UART0_IRQHandler  uart.o
-    0x00000864   0x00000864   0x00000070   Code   RO          329    i.UART1_IRQHandler  uart.o
-    0x000008d4   0x000008d4   0x000000bc   Code   RO          330    i.UARTInit          uart.o
-    0x00000990   0x00000990   0x00000024   Code   RO          334    i.UARTSendChar      uart.o
-    0x000009b4   0x000009b4   0x0000001a   Code   RO          335    i.__NVIC_EnableIRQ  uart.o
-    0x000009ce   0x000009ce   0x00000004   Code   RO          255    i._sys_exit         retarget.o
+    0x000006bc   0x000006bc   0x00000140   Code   RO          468    i.SystemInit        system_lpc17xx.o
+    0x000007fc   0x000007fc   0x00000068   Code   RO          340    i.UART0_IRQHandler  uart.o
+    0x00000864   0x00000864   0x00000070   Code   RO          341    i.UART1_IRQHandler  uart.o
+    0x000008d4   0x000008d4   0x000000bc   Code   RO          342    i.UARTInit          uart.o
+    0x00000990   0x00000990   0x00000024   Code   RO          346    i.UARTSendChar      uart.o
+    0x000009b4   0x000009b4   0x0000001a   Code   RO          347    i.__NVIC_EnableIRQ  uart.o
+    0x000009ce   0x000009ce   0x00000004   Code   RO          267    i._sys_exit         retarget.o
     0x000009d2   0x000009d2   0x00000002   PAD
     0x000009d4   0x000009d4   0x0000007c   Code   RO           25    i.acquire           main_default.o
     0x00000a50   0x00000a50   0x00000034   Code   RO           26    i.addThreadToScheduler  main_default.o
-    0x00000a84   0x00000a84   0x00000054   Code   RO           28    i.blockTaskMutex    main_default.o
-    0x00000ad8   0x00000ad8   0x00000014   Code   RO           29    i.clearBitVector    main_default.o
-    0x00000aec   0x00000aec   0x00000008   Code   RO          257    i.ferror            retarget.o
-    0x00000af4   0x00000af4   0x0000000e   Code   RO          259    i.fputc             retarget.o
-    0x00000b02   0x00000b02   0x00000002   PAD
-    0x00000b04   0x00000b04   0x00000048   Code   RO          336    i.getFrequency      uart.o
-    0x00000b4c   0x00000b4c   0x0000002c   Code   RO           30    i.getHighestPriority  main_default.o
-    0x00000b78   0x00000b78   0x0000000c   Code   RO           31    i.getNextId         main_default.o
-    0x00000b84   0x00000b84   0x00000020   Code   RO           32    i.initMutex         main_default.o
-    0x00000ba4   0x00000ba4   0x000000e4   Code   RO           34    i.main              main_default.o
-    0x00000c88   0x00000c88   0x000000c0   Code   RO           35    i.osBetaCreateThread  main_default.o
-    0x00000d48   0x00000d48   0x00000118   Code   RO           36    i.osBetaInitialize  main_default.o
-    0x00000e60   0x00000e60   0x00000020   Code   RO           37    i.osBetaStart       main_default.o
-    0x00000e80   0x00000e80   0x0000007c   Code   RO           38    i.release           main_default.o
-    0x00000efc   0x00000efc   0x00000030   Code   RO           39    i.removeThreadFromScheduler  main_default.o
-    0x00000f2c   0x00000f2c   0x00000034   Code   RO           40    i.runScheduler      main_default.o
-    0x00000f60   0x00000f60   0x00000044   Code   RO          261    i.sendchar          retarget.o
-    0x00000fa4   0x00000fa4   0x00000014   Code   RO           41    i.setBitVector      main_default.o
-    0x00000fb8   0x00000fb8   0x00000078   Code   RO           43    i.threadFunc1       main_default.o
-    0x00001030   0x00001030   0x0000004c   Code   RO           44    i.threadFunc2       main_default.o
-    0x0000107c   0x0000107c   0x0000004c   Code   RO           45    i.threadFunc3       main_default.o
-    0x000010c8   0x000010c8   0x00000014   Code   RO           46    i.triggerPendSV     main_default.o
-    0x000010dc   0x000010dc   0x00000048   Code   RO           48    i.unblockTaskMutex  main_default.o
-    0x00001124   0x00001124   0x00000020   Data   RO          702    Region$$Table       anon$$obj.o
+    0x00000a84   0x00000a84   0x0000008c   Code   RO           28    i.blockTaskMutex    main_default.o
+    0x00000b10   0x00000b10   0x00000014   Code   RO           29    i.clearBitVector    main_default.o
+    0x00000b24   0x00000b24   0x00000008   Code   RO          269    i.ferror            retarget.o
+    0x00000b2c   0x00000b2c   0x0000000e   Code   RO          271    i.fputc             retarget.o
+    0x00000b3a   0x00000b3a   0x00000002   PAD
+    0x00000b3c   0x00000b3c   0x00000048   Code   RO          348    i.getFrequency      uart.o
+    0x00000b84   0x00000b84   0x0000002c   Code   RO           30    i.getHighestPriority  main_default.o
+    0x00000bb0   0x00000bb0   0x0000001e   Code   RO           31    i.getHighestWaitListPriority  main_default.o
+    0x00000bce   0x00000bce   0x0000000c   Code   RO           32    i.getNextId         main_default.o
+    0x00000bda   0x00000bda   0x00000002   PAD
+    0x00000bdc   0x00000bdc   0x00000014   Code   RO           33    i.getThread         main_default.o
+    0x00000bf0   0x00000bf0   0x00000020   Code   RO           34    i.initMutex         main_default.o
+    0x00000c10   0x00000c10   0x000000c4   Code   RO           36    i.main              main_default.o
+    0x00000cd4   0x00000cd4   0x000000c4   Code   RO           37    i.osBetaCreateThread  main_default.o
+    0x00000d98   0x00000d98   0x00000118   Code   RO           38    i.osBetaInitialize  main_default.o
+    0x00000eb0   0x00000eb0   0x00000020   Code   RO           39    i.osBetaStart       main_default.o
+    0x00000ed0   0x00000ed0   0x0000008c   Code   RO           40    i.release           main_default.o
+    0x00000f5c   0x00000f5c   0x00000030   Code   RO           41    i.removeThreadFromScheduler  main_default.o
+    0x00000f8c   0x00000f8c   0x00000034   Code   RO           42    i.runScheduler      main_default.o
+    0x00000fc0   0x00000fc0   0x00000044   Code   RO          273    i.sendchar          retarget.o
+    0x00001004   0x00001004   0x00000014   Code   RO           43    i.setBitVector      main_default.o
+    0x00001018   0x00001018   0x0000006c   Code   RO           45    i.threadFunc1       main_default.o
+    0x00001084   0x00001084   0x0000006c   Code   RO           46    i.threadFunc2       main_default.o
+    0x000010f0   0x000010f0   0x000000b0   Code   RO           47    i.threadFunc3       main_default.o
+    0x000011a0   0x000011a0   0x00000014   Code   RO           48    i.triggerPendSV     main_default.o
+    0x000011b4   0x000011b4   0x00000060   Code   RO           50    i.unblockTaskMutex  main_default.o
+    0x00001214   0x00001214   0x00000020   Data   RO          714    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x10000000, Load base: 0x00001144, Size: 0x00000124, Max: 0xffffffff, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x10000000   0x00001144   0x000000f4   Data   RW           51    .data               main_default.o
-    0x100000f4   0x00001238   0x0000000c   Data   RW          262    .data               retarget.o
-    0x10000100   0x00001244   0x00000020   Data   RW          338    .data               uart.o
-    0x10000120   0x00001264   0x00000004   Data   RW          457    .data               system_lpc17xx.o
-
-
-    Execution Region ER_ZI (Exec base: 0x10000124, Load base: 0x00001268, Size: 0x00002124, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x10000000, Load base: 0x00001234, Size: 0x00000124, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x10000124        -       0x00000044   Zero   RW           50    .bss                main_default.o
-    0x10000168        -       0x00000080   Zero   RW          337    .bss                uart.o
-    0x100001e8        -       0x00000060   Zero   RW          580    .bss                c_w.l(libspace.o)
-    0x10000248        -       0x00000000   Zero   RW          443    HEAP                startup_lpc17xx.o
-    0x10000248        -       0x00002000   Zero   RW          442    STACK               startup_lpc17xx.o
+    0x10000000   0x00001234   0x000000f4   Data   RW           53    .data               main_default.o
+    0x100000f4   0x00001328   0x0000000c   Data   RW          274    .data               retarget.o
+    0x10000100   0x00001334   0x00000020   Data   RW          350    .data               uart.o
+    0x10000120   0x00001354   0x00000004   Data   RW          469    .data               system_lpc17xx.o
+
+
+    Execution Region ER_ZI (Exec base: 0x10000124, Load base: 0x00001358, Size: 0x00002124, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x10000124        -       0x00000044   Zero   RW           52    .bss                main_default.o
+    0x10000168        -       0x00000080   Zero   RW          349    .bss                uart.o
+    0x100001e8        -       0x00000060   Zero   RW          592    .bss                c_w.l(libspace.o)
+    0x10000248        -       0x00000000   Zero   RW          455    HEAP                startup_lpc17xx.o
+    0x10000248        -       0x00002000   Zero   RW          454    STACK               startup_lpc17xx.o
 
 
 ==============================================================================
@@ -905,16 +920,16 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
         20          0          0          0          0       4880   context.o
-      2044        676          0        244         68      62630   main_default.o
+      2282        678          0        244         68      64099   main_default.o
         94          4          0         12          0       3563   retarget.o
         64         26        204          0       8192        960   startup_lpc17xx.o
        320         18          0          4          0        767   system_lpc17xx.o
        616         86          0         32        128      49075   uart.o
 
     ----------------------------------------------------------------------
-      3162        810        236        292       8388     121875   Object Totals
+      3402        812        236        292       8388     123344   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         4          0          0          0          0          0   (incl. Padding)
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -969,15 +984,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4184        852        236        292       8484     120807   Grand Totals
-      4184        852        236        292       8484     120807   ELF Image Totals
-      4184        852        236        292          0          0   ROM Totals
+      4424        854        236        292       8484     122172   Grand Totals
+      4424        854        236        292       8484     122172   ELF Image Totals
+      4424        854        236        292          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 4420 (   4.32kB)
+    Total RO  Size (Code + RO Data)                 4660 (   4.55kB)
     Total RW  Size (RW Data + ZI Data)              8776 (   8.57kB)
-    Total ROM Size (Code + RO Data + RW Data)       4712 (   4.60kB)
+    Total ROM Size (Code + RO Data + RW Data)       4952 (   4.84kB)
 
 ==============================================================================
 

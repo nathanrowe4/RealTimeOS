@@ -25,7 +25,7 @@ void osBetaInitialize(void)
   for(int i = 0; i < 6; i++){
       tcb[i].stackPointer = stackStart+THREAD_STACK_SIZE*i;
       tcb[i].baseStackPointer = stackStart+THREAD_STACK_SIZE*i;
-			tcb[i].priority = Normal;
+			tcb[i].priority = Beta;
   }
     
   // Copy main stack into process stack of main thread
@@ -73,6 +73,7 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
     // change thread properties to reflect newly created thread
 	thread->state = osThreadReady;
 	thread->priority = priority;
+	thread->basePriority = priority;
 	
 	for( uint8_t i = 0; i < 16; i++ )
 	{

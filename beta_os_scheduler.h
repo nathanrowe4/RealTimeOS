@@ -3,12 +3,6 @@
 
 #include "beta_os_defines.h"
 
-
-osBetaThread_t tcb[6] = {{.id = 0}, {.id = 1}, {.id = 2}, {.id = 3}, {.id = 4}, {.id = 5}};
-	
-osBetaThread_t *runningTask = &(tcb[0]); //global running task to be updated by the scheduler.. should this be defined as the idle task??
-osBetaThread_t *nextTask = &(tcb[0]);
-
 // SCHEDULER
 
 //FPP Scheduler
