@@ -406,16 +406,6 @@
               <FilePath>.\beta_os.h</FilePath>
             </File>
             <File>
-              <FileName>beta_os_initialize.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\beta_os_initialize.c</FilePath>
-            </File>
-            <File>
-              <FileName>beta_os_initialize.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\beta_os_initialize.h</FilePath>
-            </File>
-            <File>
               <FileName>beta_os_defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\beta_os_defines.h</FilePath>
@@ -434,6 +424,11 @@
               <FileName>beta_os_mutex.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\beta_os_mutex.h</FilePath>
+            </File>
+            <File>
+              <FileName>test_suite.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\test_suite.h</FilePath>
             </File>
           </Files>
         </Group>
