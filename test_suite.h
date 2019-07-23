@@ -10,7 +10,6 @@ void test1Thread3(void *args)
 
 	uint32_t period = 1000;
 	uint32_t prev = -period;
-	uint32_t *argument = args;
 	uint32_t releasePeriod = 20000;
 	uint32_t releasePrev = 0;
 	
@@ -33,7 +32,6 @@ void test1Thread2(void *args)
 {
 	uint32_t creationPeriod = 10000;
 	uint32_t creationPrev = 0;
-	uint32_t *argument = args;
 	uint32_t period = 1000;
 	uint32_t prev = -period;
 	bool created = false;
@@ -58,7 +56,6 @@ void test1Thread2(void *args)
 void test1Thread1(void *args)
 {
 	acquire(&mutex, runningTask->id);
-	uint32_t *argument = args;
 	uint32_t period = 1000;
 	uint32_t prev = -period;
 	uint32_t creationPeriod = 5000;
@@ -195,7 +192,7 @@ void runTest1(void)
 	and Thread 2 will be blocked. Threads 1 and 3 will now be scheduled in a round-robin fashion. As soon as Thread 3 is able to run, it will attempt
 	to release the mutex. However, this will be unsuccessful, as the owner of the mutex is Thread 1, and as such, only Thread 1 will be able to release it.
 	At 20 seconds, Thread 1 will release the mutex, and the output terminal will show that the owner of the mutex shows as Thread 255, 
-	meaning that it is not currently owned by any thread. (on release, the owner of a mutex is set to -1, which overflows to 255)
+	meaning that it is not currently owned by any thread.
 	
 	This test also showcases how the FPP scheduler runs tasks of the same priority in a round-robin way if they are the highest priority available tasks
 */

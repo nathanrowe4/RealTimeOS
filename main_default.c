@@ -26,7 +26,7 @@ int main(void) {
 	osBetaInitialize();
 	
 	//select which test to run (runTest1() or runTest2()). Details on each test can be found in test_suite.h
-	runTest1();
+	runTest2();
 	
 	osBetaStart();
 	

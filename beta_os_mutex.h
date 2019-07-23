@@ -8,7 +8,7 @@ void initMutex(osBetaMutex_t *m) {
     
 		m->id = getNextId(&next_mutex_id);
     m->inUse = false;
-		m->owner = -1;
+		m->owner = 255;
 		m->waitList = NULL;
 }
 
@@ -113,11 +113,10 @@ void release(osBetaMutex_t *	m, osBetaThread_id currentThread) {
 			printf("Mutex %d released by Thread %d\n", m->id, currentThread);
 			m->inUse = false;
 			getThread(m->owner)->priority = getThread(m->owner)->basePriority;
-			m->owner = -1;
+			m->owner = 255;
 			unblockTaskMutex(m);
 		}
 		
     __enable_irq();
 }
-
 #endif

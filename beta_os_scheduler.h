@@ -11,7 +11,7 @@ typedef struct {
 	osBetaLinkedList_t readyList[NUM_PRIORITIES];
 } osBetaFPPScheduler_t;
 
-osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { NULL, NULL, NULL, NULL, NULL } };
+osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { {.head=NULL}, {.head=NULL}, {.head=NULL}, {.head=NULL}, {.head=NULL} } };
 
 //SET BIT VECTOR
 void setBitVector(osBetaPriority priority) {

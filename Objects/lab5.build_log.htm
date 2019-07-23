@@ -31,48 +31,11 @@ compiling Retarget.c...
 compiling context.c...
 assembling startup_LPC17xx.s...
 compiling main_default.c...
-beta_os_defines.h(114): warning:  #1-D: last line of file ends without a newline
-  #endif
-beta_os_scheduler.h(14): warning:  #188-D: enumerated type mixed with another type
-  osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { 
-ULL, 
-ULL, 
-ULL, 
-ULL, 
-ULL } };
-beta_os_scheduler.h(14): warning:  #188-D: enumerated type mixed with another type
-  osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { 
-ULL, 
-ULL, 
-ULL, 
-ULL, 
-ULL } };
-beta_os_scheduler.h(95): warning:  #1-D: last line of file ends without a newline
-  #endif
-blocking_semaphore.h(87): warning:  #1-D: last line of file ends without a newline
-  #endif
-beta_os_mutex.h(11): warning:  #68-D: integer conversion resulted in a change of sign
-  		m->owner = -1;
-beta_os_mutex.h(116): warning:  #68-D: integer conversion resulted in a change of sign
-  			m->owner = -1;
-beta_os_mutex.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif
-beta_os.h(165): warning:  #1-D: last line of file ends without a newline
-  #endif
-test_suite.h(13): warning:  #177-D: variable "argument"  was declared but never referenced
-  	uint32_t *argument = args;
-test_suite.h(36): warning:  #177-D: variable "argument"  was declared but never referenced
-  	uint32_t *argument = args;
-test_suite.h(61): warning:  #177-D: variable "argument"  was declared but never referenced
-  	uint32_t *argument = args;
-test_suite.h(208): warning:  #1-D: last line of file ends without a newline
-  }
-main_default.c: 13 warnings, 0 errors
 compiling uart.c...
 compiling system_LPC17xx.c...
 linking...
-Program Size: Code=4416 RO-data=236 RW-data=292 ZI-data=8484  
-".\Objects\lab5.axf" - 0 Error(s), 13 Warning(s).
+Program Size: Code=4964 RO-data=236 RW-data=292 ZI-data=8484  
+".\Objects\lab5.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -97,13 +60,13 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\system_LPC17xx.c
+      Include file:  RTE_Driver\Config\RTE_Device.h
       Include file:  Device\Include\LPC17xx.h
       Source file:   Device\Source\ARM\startup_LPC17xx.s
-      Include file:  RTE_Driver\Config\RTE_Device.h
-      Source file:   Device\Source\system_LPC17xx.c
 
    * Component: ARM::CMSIS:CORE:5.1.2
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
