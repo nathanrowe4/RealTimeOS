@@ -23,6 +23,7 @@ typedef void (*osBetaThreadFunc_t)(void *args); // defines pointer to function t
 
 typedef uint8_t osBetaThread_id;
 
+uint32_t msTicks = 0;
 osBetaThread_id next_thread_id = 0;
 uint32_t next_mutex_id = 0;
 uint32_t next_semaphore_id = 0;
