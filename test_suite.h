@@ -17,7 +17,7 @@ void test1Thread3(void *args)
 	{
 		if((uint32_t)(msTicks - prev) >= period)
 		{
-			printf("Thread 3 Running\n");
+			printf("Thread 3 Running, Thread 1's priority: %d\n", tcb[1].priority);
 			prev += period;
 		}
 		if((uint32_t)(msTicks - releasePrev) >= releasePeriod)
@@ -40,7 +40,7 @@ void test1Thread2(void *args)
 	{
 		if((uint32_t)(msTicks - prev) >= period)
 		{
-			printf("Thread 2 Running\n");
+			printf("Thread 2 Running, Thread 1's priority: %d\n", tcb[1].priority);
 			prev += period;
 		}
 		
@@ -69,7 +69,7 @@ void test1Thread1(void *args)
 	{
 		if((uint32_t)(msTicks - prev) >= period)
 		{
-			printf("Thread 1 Running\n");
+			printf("Thread 1 Running, Thread 1's priority: %d\n", tcb[1].priority);
 			prev += period;
 		}
 		
@@ -97,10 +97,10 @@ void test2Thread1(void *args)
 
 	uint32_t period = 1000;
 	uint32_t prev = -period;
-	uint32_t *argument = args;
 	uint32_t releasePeriod = 20000;
 	uint32_t releasePrev = 0;
 	bool released = false;
+	uint32_t *argument = args;
 	
 	while (true)
 	{
@@ -165,6 +165,76 @@ void test2Thread3(void *args)
 }
 //END TEST 2 THREAD DEFINITIONS--------------------------------------------------------------------------------------------------------
 
+//TEST 2 THREAD DEFINITIONS------------------------------------------------------------------------------------------------------------
+void test3Thread1(void *args)
+{
+	acquire(&mutex, runningTask->id);
+
+	uint32_t period = 1000;
+	uint32_t prev = -period;
+	uint32_t releasePeriod = 20000;
+	uint32_t releasePrev = 0;
+	bool released = false;
+	
+	while (true)
+	{
+		if((uint32_t)(msTicks - prev) >= period)
+		{
+			printf("Thread 1 Running, Mutex owned by: %d\n", mutex.owner);
+			prev += period;
+		}
+		if(!released && (uint32_t)(msTicks - releasePrev) >= releasePeriod)
+		{
+			release(&mutex, runningTask->id);
+			released = true;
+			releasePrev += releasePeriod;
+		}
+	}
+}
+
+void test3Thread3(void *args)
+{
+	acquire(&mutex, runningTask->id);
+
+	uint32_t period = 1000;
+	uint32_t prev = -period;
+	
+	while (true)
+	{
+		if((uint32_t)(msTicks - prev) >= period)
+		{
+			printf("Thread 1 Running, Mutex owned by: %d\n", mutex.owner);
+			prev += period;
+		}
+	}
+}
+
+void test3Thread2(void *args)
+{
+	acquire(&mutex, runningTask->id);
+
+	uint32_t period = 1000;
+	uint32_t prev = -period;
+	uint32_t cperiod = 5000;
+	uint32_t cprev = 0;
+	bool created = false;
+	
+	while (true)
+	{
+		if((uint32_t)(msTicks - prev) >= period)
+		{
+			printf("Thread 2 Running, Mutex owned by: %d\n", mutex.owner);
+			prev += period;
+		}
+		if(!created && (uint32_t)(msTicks - cprev) >= cperiod)
+		{
+			osBetaThread_id thread2_id = osBetaCreateThread(&test3Thread3, &sem.count, Chad);
+			created = true;
+			cprev += cperiod;
+		}
+	}
+}
+
 /*
 	Test 1 showcases the osBetaMutex_t datatype, and its built-in priority inheritance. The expected behaviour of Test 1 is as follows:
 	Task 1 will be created with a Normal priority, and will run for 5 seconds before creating Task 2. During this 5 seconds, Task 1 will
@@ -202,4 +272,12 @@ void runTest2(void)
 	osBetaThread_id thread1_id = osBetaCreateThread(&test2Thread1, &sem.count, Normal);
 	osBetaThread_id thread2_id = osBetaCreateThread(&test2Thread2, &sem.count, Normal);
 	osBetaThread_id thread3_id = osBetaCreateThread(&test2Thread3, &sem.count, Normal);
+}
+
+void runTest3(void)
+{
+	initMutex(&mutex);
+	
+	osBetaThread_id thread1_id = osBetaCreateThread(&test3Thread1, &sem.count, Normal);
+	osBetaThread_id thread2_id = osBetaCreateThread(&test3Thread2, &sem.count, Normal);
 }
