@@ -55,24 +55,28 @@ void unblockTask(osBetaSemaphore_t *s) {
 }
 
 //WAIT
-void wait(osBetaSemaphore_t *s) {
+void wait(osBetaSemaphore_t *s, osBetaThread_id thread_id) {
     __disable_irq();
     
 		(s->count)--;
+		printf("Thread %d tried to wait on Semaphore %d\n", thread_id, s->id);
 	
     if( s->count < 0 ) {
         blockTask(s);
     }
+		else
+			printf("Thread %d successfully waited on Semaphore %d\n", thread_id, s->id);
     
     __enable_irq();
 }
 
 //SIGNAL
-void signal(osBetaSemaphore_t *s) {
+void signal(osBetaSemaphore_t *s, osBetaThread_id thread_id) {
     __disable_irq();
     
     (s->count)++;
-    
+    printf("Thread %d signalled Semaphore %d\n", thread_id, s->id);
+	
     if( s->count - 1 < 0 ) {
         unblockTask(s);
     }

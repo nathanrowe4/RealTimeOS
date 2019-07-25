@@ -16,7 +16,7 @@ void osBetaInitialize(void)
 	
 	printf("INITIALIZING OS BETA RTOS\n");
 	
-  // Main stsck base address stored at index 0 of vector table
+  // Main stack base address stored at index 0 of vector table
   uint32_t *mainStackBaseAddress = 0x0;
 	
   uint32_t stackStart = *mainStackBaseAddress - THREAD_STACK_SIZE*7;
@@ -70,7 +70,7 @@ osBetaThread_id osBetaCreateThread(osBetaThreadFunc_t function, void *args, osBe
 	
 	printf("CREATING THREAD %d...\n", (uint32_t)thread->id);
 	
-    // change thread properties to reflect newly created thread
+  // change thread properties to reflect newly created thread
 	thread->state = osThreadReady;
 	thread->priority = priority;
 	thread->basePriority = priority;

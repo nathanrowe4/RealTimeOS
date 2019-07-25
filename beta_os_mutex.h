@@ -8,7 +8,7 @@ void initMutex(osBetaMutex_t *m) {
     
 		m->id = getNextId(&next_mutex_id);
     m->inUse = false;
-		m->owner = -1;
+		m->owner = 255;
 		m->waitList = NULL;
 }
 
@@ -64,13 +64,13 @@ void acquire(osBetaMutex_t *m, osBetaThread_id currentThread) {
     __disable_irq();
 	
     if( m->inUse == true ) {
-				printf("thread %d failed to acquire mutex %d\n", currentThread, m->id);
+				printf("Thread %d failed to acquire Mutex %d\n", currentThread, m->id);
         blockTaskMutex(m);
     }
 		
 		else
 		{
-			printf("mutex %d acquired by thread %d\n", m->id, currentThread);
+			printf("Mutex %d acquired by Thread %d\n", m->id, currentThread);
 			m->inUse = true;
 			m->owner = currentThread;
 		}
@@ -106,18 +106,17 @@ void unblockTaskMutex(osBetaMutex_t *m) {
 void release(osBetaMutex_t *	m, osBetaThread_id currentThread) {
     __disable_irq();
     
-		printf("thread %d tried to release mutex %d\n", currentThread, m->id);
+		printf("Thread %d tried to release Mutex %d\n", currentThread, m->id);
 	
     if(m->owner == currentThread)
 		{
-			printf("mutex %d released by thread %d\n", m->id, currentThread);
+			printf("Mutex %d released by Thread %d\n", m->id, currentThread);
 			m->inUse = false;
 			getThread(m->owner)->priority = getThread(m->owner)->basePriority;
-			m->owner = -1;
+			m->owner = 255;
 			unblockTaskMutex(m);
 		}
 		
     __enable_irq();
 }
-
 #endif
