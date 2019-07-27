@@ -75,7 +75,7 @@ osBetaThread_t* removeThreadFromScheduler(osBetaPriority priority) {
 // currently O(n) runtime... if time, implement in O(1) using embedded assembly instruction
 osBetaPriority getHighestPriority(void) {
 	
-    //__asm("clz %0" : "=r" (highestPriority) : "r" (scheduler.bitVector));
+    /*__asm("clz %0" : "=r" (highestPriority) : "r" (scheduler.bitVector));*/
 	for(int priority = 4; priority >= 0; priority--)
 	{
 		uint8_t result = scheduler.bitVector & (1 << priority);
