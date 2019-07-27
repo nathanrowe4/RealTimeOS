@@ -3,12 +3,6 @@
 
 #include "beta_os_defines.h"
 
-
-osBetaThread_t tcb[6] = {{.id = 0}, {.id = 1}, {.id = 2}, {.id = 3}, {.id = 4}, {.id = 5}};
-	
-osBetaThread_t *runningTask = &(tcb[0]); //global running task to be updated by the scheduler.. should this be defined as the idle task??
-osBetaThread_t *nextTask = &(tcb[0]);
-
 // SCHEDULER
 
 //FPP Scheduler
@@ -17,7 +11,7 @@ typedef struct {
 	osBetaLinkedList_t readyList[NUM_PRIORITIES];
 } osBetaFPPScheduler_t;
 
-osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { NULL, NULL, NULL, NULL, NULL } };
+osBetaFPPScheduler_t scheduler = { .bitVector = 0x0, .readyList = { {.head=NULL}, {.head=NULL}, {.head=NULL}, {.head=NULL}, {.head=NULL} } };
 
 //SET BIT VECTOR
 void setBitVector(osBetaPriority priority) {
@@ -33,6 +27,8 @@ void clearBitVector(osBetaPriority priority) {
 void addThreadToScheduler(osBetaThread_t *newThread) {
 
 	newThread->next = NULL;
+	
+	newThread->state = osThreadReady;
 	
 	//put node in position
 	osBetaPriority priority = newThread->priority;
@@ -90,12 +86,10 @@ osBetaPriority getHighestPriority(void) {
 osBetaThread_t* runScheduler(void) {
   osBetaPriority highestPriority = getHighestPriority();
 	
-	if(runningTask->priority > highestPriority) {
-		return NULL;
-	}
-	else {
+	if(runningTask == NULL || runningTask->state == osThreadBlocked || runningTask->priority <= highestPriority)
 		return removeThreadFromScheduler(highestPriority);
-	}
+	else
+		return NULL;
 }
 
 #endif

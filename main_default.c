@@ -8,52 +8,12 @@
 #include <stdio.h>
 
 #include "beta_os.h"
-
-uint32_t msTicks = 0;
+#include "test_suite.h"
 
 void SysTick_Handler(void) {
   msTicks++;
 	if((uint32_t)(msTicks % 2000) == 0)
-		SCB->ICSR = SCB->ICSR | (1<<28);
-}
-
-void threadFunc1(void *args)
-{
-	uint32_t count = 0;
-	uint32_t *argument = args;
-	while (true)
-	{
-		if(count % 30000 == 0)
-			printf("threadFunc1: %d\n", *argument);
-		
-		count++;
-	}
-}
-
-void threadFunc2(void *args)
-{
-	uint32_t count = 0;
-	uint32_t *argument = args;
-	while (true)
-	{
-		if(count % 30000 == 0)
-			printf("threadFunc2: %d\n", *argument);
-		
-		count++;
-	}
-}
-
-void threadFunc3(void *args)
-{
-	uint32_t count = 0;
-	uint32_t *argument = args;
-	while (true)
-	{
-		if(count % 30000 == 0)
-			printf("threadFunc3: %d\n", *argument);
-		
-		count++;
-	}
+		triggerPendSV();
 }
 
 int main(void) {
@@ -64,16 +24,11 @@ int main(void) {
 	uint32_t prev = -period;
 	
 	osBetaInitialize();
-
-	uint32_t a = 1;
-	uint32_t b = 2;
-	uint32_t c = 3;
 	
-	__disable_irq();
-	osBetaThread_id thread1_id = osBetaCreateThread(&threadFunc1, (void *)&a, Alpha);
-	osBetaThread_id thread2_id = osBetaCreateThread(&threadFunc2, (void *)&b, Alpha);
-	osBetaThread_id thread3_id = osBetaCreateThread(&threadFunc3, (void *)&c, Alpha);
-	__enable_irq();
+	//select which test to run (runTest1() or runTest2()). Details on each test can be found in test_suite.h
+	runTest2();
+	
+	osBetaStart();
 	
 	while(true) {
 		if((uint32_t)(msTicks - prev) >= period) {
